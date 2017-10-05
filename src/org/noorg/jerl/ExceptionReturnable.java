@@ -12,19 +12,24 @@ package org.noorg.jerl;
  * <br> and several ways to replace them too.
  * 
  * @author Elwin Slokker
- * @param <E> Some object that can represent errors in a useful way.
+ * @param <E> An object that provides information about exceptions.
  * @param <R> The required return type. The type that returns in most cases.
  */
-public interface ExceptionReturnable<E extends ExceptionMessageInterface, R extends Object>
+public interface ExceptionReturnable<E extends ExceptionInformation, 
+        R extends Object>
 {
     /**
      * Indicates whether {@see #getValue getValue()} will return a value.
-     * @return 
+     * @return <code>true</code>, if the method returned something usefull;
+     * <br> <code>false</code> otherwise.
      */
     public boolean hasReturnValue();
     /**
-     * Indicates whether {@see #getException getException()} will return a value.
-     * @return 
+     * Indicates whether {@see #getException getException()} will return a 
+     * <br>value.
+     * 
+     * @return <code>true</code>, if the method returned an exception;
+     * <br> <code>false</code> otherwise.
      */
     public boolean hasException();
     /**

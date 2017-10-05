@@ -5,10 +5,11 @@ package org.noorg.jerl;
  * A successful return that encountered no exceptions.
  * 
  * @author Elwin Slokker
- * @param <E> Use whatever type you like.
- * @param <R> The required return type. The type that returns in most cases.
+ * @param <E> The exception information the caller expects.
+ * @param <R> The required return type.
  */
-public class NormalReturn<E extends ExceptionMessageInterface, R extends Object> implements ExceptionReturnable<E, R>
+public class NormalReturn<E extends ExceptionInformation, R extends Object> 
+        implements ExceptionReturnable<E, R>
 {
     /**
      * The return value.
@@ -20,7 +21,7 @@ public class NormalReturn<E extends ExceptionMessageInterface, R extends Object>
      * 
      * @param value the object you want the calling code to receive.
      */
-    public NormalReturn(R value)
+    public NormalReturn(final R value)
     {
         this.value = value;
     }
@@ -46,7 +47,8 @@ public class NormalReturn<E extends ExceptionMessageInterface, R extends Object>
     }
 
     /**
-     * @return the (return) value provided by the method that created this object.
+     * @return the (return) value provided by the method that created this 
+     * <br>object.
      */
     @Override
     public R getValue()
@@ -65,6 +67,7 @@ public class NormalReturn<E extends ExceptionMessageInterface, R extends Object>
     @Override
     public E getException()
     {
-        throw new UnsupportedOperationException("This has no exception, since all went well in the method that created this object.");
+        throw new UnsupportedOperationException("This has no exception, since "
+                + "all went well in the method that created this object.");
     }
 }

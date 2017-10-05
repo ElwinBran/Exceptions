@@ -2,27 +2,31 @@
 package org.noorg.jerl;
 
 /**
- * An unsuccessful return that did encounter an exception and could not make a value.
+ * An unsuccessful return that did encounter an exception and could not make a 
+ * <br>value.
  * 
  * @author Elwin Slokker
- * @param <E> An exception type that matches the exception.
- * @param <R> The required return type. The type that returns in most cases.
+ * @param <E> The exception information the caller expects.
+ * @param <R> The required return type.
  */
-public class ExceptionReturn<E extends ExceptionMessageInterface, R extends Object> implements ExceptionReturnable<E, R>
+public class ExceptionReturn<E extends ExceptionInformation, R extends Object> 
+        implements ExceptionReturnable<E, R>
 {
     /**
      * The exception.
      */
-    private final E exception;
+    private final E information;
     
     /**
      * Simple constructor, used for passing the exception.
      * 
-     * @param exception the exception object that needs to passed to the calling code.
+     * @param exInformation the exception information that needs to passed to 
+     * <br>the calling code.
      */
-    public ExceptionReturn(E exception)
+    public ExceptionReturn(final E exInformation)
     {
-        this.exception = exception;
+        
+        this.information = exInformation;
     }
     
     /**
@@ -56,7 +60,8 @@ public class ExceptionReturn<E extends ExceptionMessageInterface, R extends Obje
     @Override
     public R getValue()
     {
-        throw new UnsupportedOperationException("This has no value, since something went wrong in the method that created this object.");
+        throw new UnsupportedOperationException("This has no value, since "
+              + "something went wrong in the method that created this object.");
     }
 
     /**
@@ -66,6 +71,6 @@ public class ExceptionReturn<E extends ExceptionMessageInterface, R extends Obje
     @Override
     public E getException()
     {
-        return this.exception;
+        return this.information;
     }
 }

@@ -9,7 +9,8 @@ package org.noorg.jerl;
  * @param <E> An exception type that matches the warning.
  * @param <R> The required return type. The type that returns in most cases.
  */
-public class WarningReturn<E extends ExceptionMessageInterface, R extends Object> implements ExceptionReturnable<E, R>
+public class WarningReturn<E extends ExceptionInformation, R extends Object> 
+        implements ExceptionReturnable<E, R>
 {
     /**
      * The warning.
@@ -23,7 +24,8 @@ public class WarningReturn<E extends ExceptionMessageInterface, R extends Object
     /**
      * Simple constructor, used for passing the value and the exception.
      * 
-     * @param exception the warning object that needs to passed to the calling code.
+     * @param exception the warning object that needs to passed to the calling 
+     * <br>code.
      * @param value the object you want the calling code to receive.
      */
     public WarningReturn(E exception, R value)
@@ -52,7 +54,8 @@ public class WarningReturn<E extends ExceptionMessageInterface, R extends Object
     }
 
     /**
-     * @return the (return) value provided by the method that created this object.
+     * @return the (return) value provided by the method that created this 
+     * object.
      */
     @Override
     public R getValue()
@@ -61,8 +64,8 @@ public class WarningReturn<E extends ExceptionMessageInterface, R extends Object
     }
     
     /**
-     * @return an exception/warning object that should contain details about what went 
-     * <br> wrong in the method that created this object.
+     * @return an exception/warning object that should contain details about 
+     * <br> what went wrong in the method that created this object.
      */
     @Override
     public E getException()
