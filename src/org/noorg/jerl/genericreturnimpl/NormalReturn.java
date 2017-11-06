@@ -25,6 +25,7 @@ package org.noorg.jerl.genericreturnimpl;
 import org.noorg.jerl.ExceptionReturnable;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * A successful return that encountered no exceptions.
@@ -85,15 +86,13 @@ public class NormalReturn<E extends Object, R extends Object>
     }
 
     /**
-     * This object has no exception as {@see #hasException hasException()} 
-     * already indicates. 
-     * <br> DO NOT CALL.
-     * @return a {@see Throwable}.
+     * This object has no exception(s).
+     *
+     * @return an empty {@see Collection}.
      */
     @Override
     public Collection<E> getExceptions()
     {
-        throw new UnsupportedOperationException("This has no exception, since "
-                + "all went well in the method that created this object.");
+        return Collections.EMPTY_LIST;
     }
 }
