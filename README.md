@@ -38,4 +38,4 @@ His first idea is that subclassing Exception is weird/bad because the exception 
 The second idea is making everything a checked exception.
 
 <b>License</b><br>
-Currently none, this is being worked on. 
+All source code MIT Licensed.
