@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="java-exception-replacement-library:jar">
+    <output-path>$PROJECT_DIR$/../../artifacts/java_exception_replacement_library_jar</output-path>
+    <root id="archive" name="java-exception-replacement-library.jar">
+      <element id="module-output" name="java-exception-replacement-library" />
+    </root>
+  </artifact>
+</component>
