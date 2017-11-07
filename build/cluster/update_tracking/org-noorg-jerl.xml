@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="org.noorg.jerl">
-    <module_version install_time="1508339529199" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1510048464403" last="true" origin="installer" specification_version="1.0">
         <file crc="3011007946" name="config/Modules/org-noorg-jerl.xml"/>
-        <file crc="2183831604" name="modules/org-noorg-jerl.jar"/>
+        <file crc="1379451784" name="modules/org-noorg-jerl.jar"/>
     </module_version>
 </module>

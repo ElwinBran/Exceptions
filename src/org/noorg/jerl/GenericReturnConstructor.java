@@ -26,11 +26,9 @@ import org.noorg.jerl.genericreturnimpl.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 
 /**
- * Makes/creates {@see ExceptionReturnable} objects.
+ * Makes/creates {@link ExceptionReturnable} objects.
  * <br><br>
  * There is really not much else to it. Simply pass what information the called
  * <br>method has to this object and it will make the right ExceptionReturnable.
@@ -60,7 +58,7 @@ public class GenericReturnConstructor<E extends Object,R extends Object>
     public ExceptionReturnable<E, R> construct(
             final Collection<E> exceptionInformation)
     {
-        return new ExceptionReturn<E, R>(new ArrayList<>(exceptionInformation));
+        return new ExceptionReturn<E, R>(avoidNull(exceptionInformation));
     }
 
     /**
@@ -71,11 +69,14 @@ public class GenericReturnConstructor<E extends Object,R extends Object>
     public ExceptionReturnable<E, R> construct(E... exceptionInformation)
     {
         return new ExceptionReturn<E, R>(
-                arrayToCollection(exceptionInformation));
+                avoidNull(exceptionInformation));
     }
 
     /**
-     * Use for making 'warning'-like returns.
+     * General use construct method.
+     * <br>Will ignore if one of the to arguments are null and call the correct
+     * <br>method instead. ({@code value == null} then
+     * {@link #construct(Collection)} <br>is called and the opposite also works)
      *
      * @param value the value to pass to the caller.
      * @param exceptionInformation the collection of information about the
@@ -86,12 +87,26 @@ public class GenericReturnConstructor<E extends Object,R extends Object>
     public ExceptionReturnable<E, R> construct(final R value,
             final Collection<E> exceptionInformation)
     {
-        return new WarningReturn<E, R>(
-               new ArrayList<>(exceptionInformation), value);
+        if(value == null && exceptionInformation != null)
+        {
+            return construct(exceptionInformation);
+        }
+        else if(value != null && exceptionInformation == null)
+        {
+            return construct(value);
+        }
+        else
+        {//a true warning return that has exceptions and a value.
+            return new WarningReturn<E, R>(
+                    avoidNull(exceptionInformation), value);
+        }
     }
 
     /**
-     * Use for making 'warning'-like returns.
+     * General use construct method.
+     * <br>Will ignore if one of the to arguments are null and call the correct
+     * <br>method instead. ({@code value == null} then
+     * {@link #construct(E...)} <br>is called and the opposite also works)
      *
      * @param value the value to pass to the caller.
      * @param exceptionInformation the array of information about the
@@ -102,10 +117,29 @@ public class GenericReturnConstructor<E extends Object,R extends Object>
     public ExceptionReturnable<E, R> construct(final R value,
                                                E... exceptionInformation)
     {
-        return new WarningReturn<E, R>(
-                arrayToCollection(exceptionInformation), value);
+        if(value == null && exceptionInformation != null)
+        {
+            return construct(exceptionInformation);
+        }
+        else if(value != null && exceptionInformation == null)
+        {
+            return construct(value);
+        }
+        else {//a true warning return that has exceptions and a value.
+            return new WarningReturn<E, R>(
+                    avoidNull(exceptionInformation), value);
+        }
     }
 
+    /**
+     * Converts array of information to a {@see Collection}.
+     * <br>Do not call this directly, but let {@link #avoidNull(Object[])} or
+     * {@link #avoidNull(Collection)}<br> take care of it implicitly.
+     *
+     * @param exceptionInformation the array to be converted. May not be null
+     *                             or NPE's will occur.
+     * @return A collection containing all information from the array.
+     */
     protected Collection<E> arrayToCollection(E... exceptionInformation)
     {
         final ArrayList<E> information =
@@ -115,5 +149,47 @@ public class GenericReturnConstructor<E extends Object,R extends Object>
             information.add(exInfo);
         }
         return information;
+    }
+
+    /**
+     * Literally avoids null pointer exceptions by testing for null and passing
+     * it back to the user.
+     *
+     * @param exceptionInformation a possibly null array of information of
+     *                             exceptions.
+     * @return A collection to be given directly to a ExceptionReturnable
+     * constructor (a real java constructor, not this class).
+     */
+    protected Collection<E> avoidNull(final E... exceptionInformation)
+    {
+        if(exceptionInformation == null)
+        {
+            return null;
+        }
+        else
+        {
+            return arrayToCollection(exceptionInformation);
+        }
+    }
+
+    /**
+     * Literally avoids null pointer exceptions by testing for null and passing
+     * it back to the user.
+     *
+     * @param exceptionInformation a possibly null collection of information of
+     *                             exceptions.
+     * @return A collection to be given directly to a ExceptionReturnable
+     * constructor (a real java constructor, not this class).
+     */
+    protected Collection<E> avoidNull(final Collection<E> exceptionInformation)
+    {
+        if(exceptionInformation == null)
+        {
+            return null;
+        }
+        else
+        {
+            return new ArrayList<>(exceptionInformation);//copies collection.
+        }
     }
 }

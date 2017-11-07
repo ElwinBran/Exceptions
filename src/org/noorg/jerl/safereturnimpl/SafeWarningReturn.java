@@ -34,7 +34,7 @@ import java.util.Collection;
  *
  * @param <R> The required return type. The type that returns in most cases.
  */
-public class SafeWarningReturns<R extends Object> extends SafeReturn<R>
+public class SafeWarningReturn<R extends Object> extends SafeReturn<R>
 {
     /**
      * The warning.
@@ -54,7 +54,7 @@ public class SafeWarningReturns<R extends Object> extends SafeReturn<R>
      *                   <br>calling code.
      * @param value the object you want the calling code to receive.
      */
-    public SafeWarningReturns(Collection<ExceptionInformation> exceptions, R value)
+    public SafeWarningReturn(Collection<ExceptionInformation> exceptions, R value)
     {
         this.value = value;
         this.information = exceptions;

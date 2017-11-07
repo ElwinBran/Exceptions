@@ -25,11 +25,10 @@ package org.noorg.jerl;
 import org.noorg.jerl.exceptioninformation.ExceptionInformation;
 import org.noorg.jerl.safereturnimpl.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Makes/creates {@see SafeReturn} objects.
+ * Makes/creates {@link SafeReturn} objects.
  * <br><br>
  * There is really not much else to it. Simply pass what information the called
  * <br>method has to this object and it will make the right SafeReturn.
@@ -62,7 +61,7 @@ public class SafeReturnConstructor<R extends Object>
     public SafeReturn<R> construct(
             final Collection<ExceptionInformation> exceptionInformation)
     {
-        return new SafeExceptionReturn<R>(new ArrayList<>(exceptionInformation));
+        return new SafeExceptionReturn<R>(avoidNull(exceptionInformation));
     }
 
     /**
@@ -74,11 +73,14 @@ public class SafeReturnConstructor<R extends Object>
     public SafeReturn<R> construct(ExceptionInformation... exceptionInformation)
     {
         return new SafeExceptionReturn<R>(
-                super.arrayToCollection(exceptionInformation));
+                super.avoidNull(exceptionInformation));
     }
 
     /**
-     * Use for making 'warning'-like returns.
+     * General use construct method.
+     * <br>Will ignore if one of the to arguments are null and call the correct
+     * <br>method instead. ({@code value == null} then
+     * {@link #construct(Collection)} <br>is called and the opposite also works)
      *
      * @param value the value to pass to the caller.
      * @param exceptionInformation the collection of information about the
@@ -89,12 +91,27 @@ public class SafeReturnConstructor<R extends Object>
     public SafeReturn<R> construct(final R value,
             final Collection<ExceptionInformation> exceptionInformation)
     {
-
-        return new SafeWarningReturns<>(new ArrayList<>(exceptionInformation), value);
+        if(value == null && exceptionInformation != null)
+        {
+            return construct(exceptionInformation);
+        }
+        else if(value != null && exceptionInformation == null)
+        {
+            return construct(value);
+        }
+        else
+        {//a true warning return that has exceptions and a value.
+            return new SafeWarningReturn<>(
+                    super.avoidNull(exceptionInformation),value);
+        }
     }
 
     /**
-     * Use for making 'warning'-like returns.
+     * General use construct method.
+     * <br>Will ignore if one of the to arguments are null and call the correct
+     * <br>method instead. ({@code value == null} then
+     * {@link #construct(ExceptionInformation...)}
+     * <br>is called and the opposite also works)
      *
      * @param value the value to pass to the caller.
      * @param exceptionInformation the array of information about the
@@ -105,7 +122,18 @@ public class SafeReturnConstructor<R extends Object>
     public SafeReturn<R> construct(final R value,
                       ExceptionInformation... exceptionInformation)
     {
-        return new SafeWarningReturns<R>(
-                super.arrayToCollection(exceptionInformation), value);
+        if(value == null && exceptionInformation != null)
+        {
+            return construct(exceptionInformation);
+        }
+        else if(value != null && exceptionInformation == null)
+        {
+            return construct(value);
+        }
+        else
+        {//a true warning return that has exceptions and a value.
+            return new SafeWarningReturn<R>(
+                    super.avoidNull(exceptionInformation), value);
+        }
     }
 }
