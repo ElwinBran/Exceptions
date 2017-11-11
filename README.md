@@ -3,8 +3,10 @@ A system that could replace the standard java Exceptions.
 
 <b>In short the reasons for using this library instead of exceptions:</b>
 <br>-Exceptions are like 'goto'. 
-<br>-Checked exceptions along with their try()...catch() complicate the language. Which would be justified when they did not act like a goto.
-<br>-Only subclasses of exception can be changed to return multiple messages. (Adding behaviour/public methods to subclasses is bad for low coupling and sometimes encourages casting.... which can then even lead to more exceptions.)
+<br>-Checked Exceptions are not a maintainble solution. Method signatures can grow very big and when implementation changes and there is a change in thrown exceptions, all calling code need to change.
+<br>-Checked exceptions also complicate the language with their try()...catch() and throws ... declaration.
+<br>-Exceptions are not able to handle multiple exceptions. There are enough cases where the thrower might be able to identify more than a single exceptions and may feel the need to throw multiple exceptions. This is impossible by default.
+<br>-Exceptions encourage casting, which can cause exceptions.
 <br>-Regular exceptions might not be able to carry enough information to be useful to a user.
 
 <b>How to use this library:</b><br>
