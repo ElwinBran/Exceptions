@@ -25,7 +25,6 @@ package org.noorg.jerl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.noorg.jerl.exceptioninformation.ExceptionInformation;
 
 import java.util.Collection;
 import java.util.logging.Level;
