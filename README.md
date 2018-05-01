@@ -1,6 +1,14 @@
 # java-exception-replacement-library
 A system that could replace the standard java Exceptions.
 
+<b>NOTICE/UPDATE</b>
+This project is still being worked on. 
+Although there is a full release from a while ago and seemed to be updated once in a while, it will be fully reverted and reset at one point. I have a local project that has the same goal as this one and even incorparates the UEI project into it as well.
+This newer local project reflects my current views on OOP and OOD, which is also part of a library to completly overhaul Java.
+You may use this library to your hearts content, but it will not be fully supported anymore.
+
+Before using this though, please think carefully about it and contact me if you are looking for a more maintainable and WIP variant.
+
 <b>In short the reasons for using this library instead of exceptions:</b>
 <br>-Exceptions are like 'goto'. 
 <br>-Checked Exceptions are not a maintainble solution. Method signatures can grow very big and when implementation changes and there is a change in thrown exceptions, all calling code need to change.
